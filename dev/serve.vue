@@ -14,4 +14,4 @@ export default Vue.extend({
   <div id="app">
     <widget-mondial-relay brand="xxx" />
   </div>
-</template><
+</template>
