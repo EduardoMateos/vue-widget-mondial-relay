@@ -11,7 +11,9 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div id="app">
-    <widget-mondial-relay brand="xxx" />
+  <div style="text-align:center;">
+    <div id="app" style="max-width:980px;margin:auto">
+      <widget-mondial-relay brand="XXXX" />
+    </div>
   </div>
 </template>

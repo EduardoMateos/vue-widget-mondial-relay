@@ -1,8 +1,26 @@
 
 <template>
-  <div class="widget-mondial-relay">
-    <div v-for="(item, key) in parcelShopList" :key="key">
-      {{item.ID}}
+  <div class="mondial-relay-widget">
+    <Header @searchByCp="searchByCp" />
+    <div class="mondial-relay-row">
+      <div class="mondial-relay-left-column">
+        <div class="mondial-relay-parcel-list">
+          <div
+            v-for="(item, key) in parcelShopList"
+            :key="key"
+            class="mondial-relay-parcel-list__shop"
+            @click="selectParcel(item)"
+            :class="parcelSelected && parcelSelected.ID == item.ID ? 'mondial-relay-parcel-list__shop--selected':''"
+          >
+            {{ item.Nom }}<br />
+            {{ item.Adresse1 }}<br />
+            {{ item.CP }} {{ item.Ville }}
+          </div>
+        </div>
+      </div>
+      <div class="mondial-relay-right-column">
+        <LMap :parcelShopList="parcelShopList" :parcelSelected="parcelSelected" />
+      </div>
     </div>
   </div>
 </template>
@@ -10,9 +28,15 @@
 
 <script>
 import { jsonp } from "vue-jsonp";
+import LMap from "./components/LMap";
+import Header from "./components/Header";
 
 export default {
-  props: ['brand'],
+  props: ["brand"],
+  components: {
+    LMap,
+    Header,
+  },
   name: "WidgetMondialRelay",
   data() {
     return {
@@ -32,13 +56,21 @@ export default {
         VacationBefore: "",
         Weight: "",
       },
-      parcelShopList: []
+      parcelShopList: [],
+      parcelSelected: null
     };
   },
   created() {
     this.getParcelShopList();
   },
   methods: {
+    selectParcel(parcel){
+      this.parcelSelected = parcel;
+    },
+    searchByCp(cp) {
+      this.searchParcelShop.PostCode = cp;
+      this.getParcelShopList();
+    },
     getParcelShopList() {
       jsonp(
         "https://widget.mondialrelay.com/parcelshop-picker/v4_0/services/parcelshop-picker.svc/SearchPR",
@@ -52,7 +84,7 @@ export default {
           Latitude: "",
           Longitude: "",
           NbResults: "7",
-          PostCode: "28037",
+          PostCode: this.searchParcelShop.PostCode,
           SearchDelay: "",
           SearchFar: "75",
           Service: "",
@@ -61,24 +93,44 @@ export default {
           Weight: "",
         }
       ).then((data) => {
-        this.parcelShopList = data.PRList;
+        if (data.error) {
+          this.parcelShopList = [];
+        } else {
+          this.parcelShopList = data.PRList;
+        }
       });
     },
   },
 };
 </script>
 
-<style scoped>
-.widget-mondial-relay {
-  display: block;
-  width: 400px;
-  margin: 25px auto;
-  border: 1px solid #ccc;
-  background: #eaeaea;
-  text-align: center;
-  padding: 25px;
+
+<style lang="scss">
+.mondial-relay-widget{
+  border: solid 1px #ddd;
 }
-.widget-mondial-relay p {
-  margin: 0 0 1em;
+.mondial-relay-row {
+  display: flex;
+}
+.mondial-relay-left-column {
+  flex: 30%;
+  padding: 10px;
+}
+.mondial-relay-right-column {
+  flex: 70%;
+  padding: 10px;
+}
+.mondial-relay-parcel-list {
+  overflow-y: scroll;
+  max-height: 100%;
+  &__shop {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #c4c4c4;
+    text-align: left;
+    &--selected{
+      background-color: #f0f0f0;
+    }
+  }
 }
 </style>
