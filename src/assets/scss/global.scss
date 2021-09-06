@@ -1,0 +1,59 @@
+.mondial-relay-group {
+    position: relative;
+    &__input {
+        display: block;
+        padding: .375rem .75rem;
+        width: 100%;
+        font-size: 1rem;
+        line-height: 1.5;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        min-height: 50px;
+        max-width: 100%;
+        &__toggle {
+            position: absolute;
+            right: 5px;
+            top: calc(50% - 10px);
+            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            height: 24px;
+        }
+        &:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: black;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
+        &--has-text {
+            //padding-top: 18px !important;
+        }
+        &--invalid {
+            border: 1px solid #dc3545 !important;
+        }
+        &__label {
+            position: absolute;
+            pointer-events: none;
+            left: 14px;
+            color: #747474;
+            top: 15px;
+            transition: 0.2s ease all;
+            font-size: 16px;
+            &--top {
+                font-size: 12px;
+                top: 6px;
+                left: 14px;
+            }
+        }
+        &__flag {
+            position: absolute;
+            top: 26px;
+            left: 14px;
+        }
+    }
+}

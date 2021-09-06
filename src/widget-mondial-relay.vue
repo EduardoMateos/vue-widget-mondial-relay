@@ -30,6 +30,7 @@
 import { jsonp } from "vue-jsonp";
 import LMap from "./components/LMap";
 import Header from "./components/Header";
+import "./assets/scss/global.scss";
 
 export default {
   props: ["brand"],
@@ -108,6 +109,7 @@ export default {
 <style lang="scss">
 .mondial-relay-widget{
   border: solid 1px #ddd;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 .mondial-relay-row {
   display: flex;

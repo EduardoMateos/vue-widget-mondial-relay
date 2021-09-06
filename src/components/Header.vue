@@ -5,22 +5,47 @@
       src="https://widget.mondialrelay.com/parcelshop-picker/v4_0/css/imgs/mr-64.png"
       alt="mondial relay"
     />
+
     <div class="mondial-relay-form">
-      <div class="mondial-relay-form__label">
-        <label for="cp">Código postal</label>
+      <div class="mondial-relay-form__countries">
+        <CountrySelector></CountrySelector>
       </div>
-      <div class="mondial-relay-form__input">
-        <input id="cp" name="cp" v-model="cp" required size="8" />
-        <button type="button" v-on:click="search()">Buscar</button>
+      <div class="mondial-relay-form__cp">
+        <div class="mondial-relay-group">
+          <input
+            class="mondial-relay-group__input"
+            id="cp"
+            name="cp"
+            v-model="cp"
+            required
+            size="8"
+            :class="cp != null && cp.length > 0 ? 'mondial-relay-group__input--has-text' : ''"
+          />
+          <label
+            for="cp"
+            class="mondial-relay-group__input__label"
+            :class="
+              cp != null && cp.length > 0
+                ? 'mondial-relay-group__input__label--top'
+                : ''
+            "
+            >Código postal
+          </label>
+        </div>
       </div>
+      <button type="button" v-on:click="search()">Buscar</button>
     </div>
   </div>
 </template>
 
 
 <script>
+import CountrySelector from "./CountrySelector";
 export default {
   name: "Header",
+  components: {
+    CountrySelector,
+  },
   data() {
     return {
       cp: 28037,
@@ -28,7 +53,7 @@ export default {
   },
   methods: {
     search() {
-      this.$emit('searchByCp', this.cp)
+      this.$emit("searchByCp", this.cp);
     },
   },
 };
@@ -36,35 +61,22 @@ export default {
 
 <style lang="scss">
 .mondial-relay-header {
-  display: flex;
+  //display: flex;
   flex-wrap: wrap;
   margin: 12px;
 }
 
 .mondial-relay-form {
-  margin: auto;
-  display: flex;
-
-  &__label {
-    margin: auto;
-    margin-right: 28px;
+  max-width: 600px;
+  &__countries {
+    display: inline-block;
+    max-width: 100%;
+    width: 78px;
   }
-
-  &__input {
-    display: flex;
-    input {
-      display: block;
-      width: 100%;
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #495057;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    }
+  &__cp {
+    display: inline-block;
+    max-width: 100%;
+    width: 128px;
   }
 }
 </style>
