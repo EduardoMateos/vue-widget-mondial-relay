@@ -11,29 +11,21 @@
         <CountrySelector></CountrySelector>
       </div>
       <div class="mondial-relay-form__cp">
-        <div class="mondial-relay-group">
-          <input
-            class="mondial-relay-group__input"
-            id="cp"
-            name="cp"
-            v-model="cp"
-            required
-            size="8"
-            :class="cp != null && cp.length > 0 ? 'mondial-relay-group__input--has-text' : ''"
-          />
-          <label
-            for="cp"
-            class="mondial-relay-group__input__label"
-            :class="
-              cp != null && cp.length > 0
-                ? 'mondial-relay-group__input__label--top'
-                : ''
-            "
-            >Código postal
-          </label>
-        </div>
+        <input
+          class="mondial-relay-input"
+          id="cp"
+          name="cp"
+          v-model="cp"
+          required
+          placeholder="CP"
+        />
       </div>
-      <button type="button" v-on:click="search()">Buscar</button>
+      <div class="mondial-relay-form__search">
+        <img
+          src="./../assets/images/search.svg"
+          v-on:click="search()"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -67,16 +59,62 @@ export default {
 }
 
 .mondial-relay-form {
-  max-width: 600px;
+  margin: auto;
+  text-align: right;
   &__countries {
     display: inline-block;
-    max-width: 100%;
     width: 78px;
   }
   &__cp {
     display: inline-block;
-    max-width: 100%;
-    width: 128px;
+    width: 52px;
+    margin-right: 28px;
+  }
+  &__search{
+    display: inline-block;
+    margin-left: 12px;
+    width: 22px;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+}
+
+.mondial-relay-input {
+  position: relative;
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  max-width: 100%;
+
+  &__toggle {
+    position: absolute;
+    right: 5px;
+    top: calc(50% - 10px);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+  }
+
+  &:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: black;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+  }
+
+  &__flag {
+    position: absolute;
+    top: 8px;
+    left: 14px;
   }
 }
 </style>
