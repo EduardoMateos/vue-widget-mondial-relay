@@ -3,14 +3,18 @@
   <div class="mondial-relay-widget">
     <Header @searchByCp="searchByCp" />
     <div class="mondial-relay-row">
-      <div class="mondial-relay-left-column">
+      <div class="mondial-relay-left-column" :class="!mobileShowMap ? 'hide-mobile' : ''">
         <div class="mondial-relay-parcel-list">
           <div
             v-for="(item, key) in parcelShopList"
             :key="key"
             class="mondial-relay-parcel-list__shop"
             @click="selectParcel(item)"
-            :class="parcelSelected && parcelSelected.ID == item.ID ? 'mondial-relay-parcel-list__shop--selected':''"
+            :class="
+              parcelSelected && parcelSelected.ID == item.ID
+                ? 'mondial-relay-parcel-list__shop--selected'
+                : ''
+            "
           >
             {{ item.Nom }}<br />
             {{ item.Adresse1 }}<br />
@@ -18,8 +22,14 @@
           </div>
         </div>
       </div>
-      <div class="mondial-relay-right-column">
-        <LMap :parcelShopList="parcelShopList" :parcelSelected="parcelSelected" />
+      <div
+        class="mondial-relay-right-column"
+        :class="mobileShowMap ? 'hide-mobile' : ''"
+      >
+        <LMap
+          :parcelShopList="parcelShopList"
+          :parcelSelected="parcelSelected"
+        />
       </div>
     </div>
   </div>
@@ -41,6 +51,7 @@ export default {
   name: "WidgetMondialRelay",
   data() {
     return {
+      mobileShowMap: true,
       searchParcelShop: {
         Brand: this.brand,
         ClientContainerId: "Zone_Widget",
@@ -58,14 +69,14 @@ export default {
         Weight: "",
       },
       parcelShopList: [],
-      parcelSelected: null
+      parcelSelected: null,
     };
   },
   created() {
     this.getParcelShopList();
   },
   methods: {
-    selectParcel(parcel){
+    selectParcel(parcel) {
       this.parcelSelected = parcel;
     },
     searchByCp(cp) {
@@ -107,20 +118,38 @@ export default {
 
 
 <style lang="scss">
-.mondial-relay-widget{
+.mondial-relay-widget {
   border: solid 1px #ddd;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 .mondial-relay-row {
   display: flex;
 }
+
+@media (max-width: 576px) {
+  .hide-mobile {
+    display: none;
+  }
+}
+
 .mondial-relay-left-column {
-  flex: 30%;
   padding: 10px;
+  @media (max-width: 576px) {
+    flex: 100%;
+  }
+  @media (min-width: 576px) {
+    flex: 30%;
+  }
 }
 .mondial-relay-right-column {
-  flex: 70%;
   padding: 10px;
+  @media (max-width: 576px) {
+    flex: 100%;
+  }
+  @media (min-width: 576px) {
+    flex: 70%;
+  }
 }
 .mondial-relay-parcel-list {
   overflow-y: scroll;
@@ -130,7 +159,7 @@ export default {
     cursor: pointer;
     border-bottom: 1px solid #c4c4c4;
     text-align: left;
-    &--selected{
+    &--selected {
       background-color: #f0f0f0;
     }
   }
