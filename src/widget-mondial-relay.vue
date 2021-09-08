@@ -1,35 +1,57 @@
 
 <template>
   <div class="mondial-relay-widget">
-    <Header @searchByCp="searchByCp" />
-    <div class="mondial-relay-row">
-      <div class="mondial-relay-left-column" :class="!mobileShowMap ? 'hide-mobile' : ''">
-        <div class="mondial-relay-parcel-list">
-          <div
-            v-for="(item, key) in parcelShopList"
-            :key="key"
-            class="mondial-relay-parcel-list__shop"
-            @click="selectParcel(item)"
-            :class="
-              parcelSelected && parcelSelected.ID == item.ID
-                ? 'mondial-relay-parcel-list__shop--selected'
-                : ''
-            "
-          >
-            {{ item.Nom }}<br />
-            {{ item.Adresse1 }}<br />
-            {{ item.CP }} {{ item.Ville }}
+    <MondialRelayFormSearchCP @searchByCp="searchByCp" />
+    <MondialRelayErrorMessage :message="messageError" v-if="hasError" />
+    <div v-show="!hasError">
+      <div class="mondial-relay-tab hide-desktop">
+        <button
+          :class="mobileShowMap == true ? 'active' : ''"
+          @click="mobileShowMap = true"
+        >
+          Listado
+        </button>
+        <button
+          :class="mobileShowMap == false ? 'active' : ''"
+          @click="mobileShowMap = false"
+        >
+          Mapa
+        </button>
+      </div>
+      <div class="mondial-relay-row">
+        <div
+          class="mondial-relay-left-column"
+          :class="!mobileShowMap ? 'hide-mobile' : ''"
+        >
+          <div class="mondial-relay-parcel-list">
+            <div
+              v-for="(item, key) in parcelShopList"
+              :key="key"
+              class="mondial-relay-parcel-list__shop"
+              @click="selectParcel(item)"
+              :class="
+                parcelSelected && parcelSelected.ID == item.ID
+                  ? 'mondial-relay-parcel-list__shop--selected'
+                  : ''
+              "
+            >
+              <div class="mondial-relay-parcel-list__shop__name">
+                {{ item.Nom }}
+              </div>
+              {{ item.Adresse1 }}<br />
+              {{ item.CP }} {{ item.Ville }}
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        class="mondial-relay-right-column"
-        :class="mobileShowMap ? 'hide-mobile' : ''"
-      >
-        <LMap
-          :parcelShopList="parcelShopList"
-          :parcelSelected="parcelSelected"
-        />
+        <div
+          class="mondial-relay-right-column"
+          :class="mobileShowMap ? 'hide-mobile' : ''"
+        >
+          <LMap
+            :parcelShopList="parcelShopList"
+            :parcelSelected="parcelSelected"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -39,18 +61,22 @@
 <script>
 import { jsonp } from "vue-jsonp";
 import LMap from "./components/LMap";
-import Header from "./components/Header";
+import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
+import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import "./assets/scss/global.scss";
 
 export default {
   props: ["brand"],
   components: {
     LMap,
-    Header,
+    MondialRelayFormSearchCP,
+    MondialRelayErrorMessage,
   },
   name: "WidgetMondialRelay",
   data() {
     return {
+      messageError: null,
+      hasError: false,
       mobileShowMap: true,
       searchParcelShop: {
         Brand: this.brand,
@@ -105,10 +131,14 @@ export default {
           Weight: "",
         }
       ).then((data) => {
-        if (data.error) {
+        if (data.Error) {
           this.parcelShopList = [];
+          this.messageError = data.Error;
+          this.hasError = true;
         } else {
           this.parcelShopList = data.PRList;
+          this.messageError = null;
+          this.hasError = false;
         }
       });
     },
@@ -129,6 +159,12 @@ export default {
 
 @media (max-width: 576px) {
   .hide-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  .hide-desktop {
     display: none;
   }
 }
@@ -159,8 +195,34 @@ export default {
     cursor: pointer;
     border-bottom: 1px solid #c4c4c4;
     text-align: left;
+    &__name {
+      color: #ca0047;
+    }
     &--selected {
       background-color: #f0f0f0;
+      border-left: solid 2px #ca0047;
+    }
+  }
+}
+
+.mondial-relay-tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  button {
+    background-color: inherit;
+    float: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    &:hover {
+      background-color: #ddd;
+    }
+    &.active {
+      background-color: #ccc;
     }
   }
 }

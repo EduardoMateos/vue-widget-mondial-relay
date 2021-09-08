@@ -10,7 +10,7 @@
         size="8"
       />
       <div class="mondial-relay-selector__input__flag">
-        <img src="./../assets/images/spain-flag.svg" width="30px" />
+        <img src="./../../assets/images/spain-flag.svg" width="30px" />
       </div>
       <div class="mondial-relay-selector__input__toggle">
         <svg
