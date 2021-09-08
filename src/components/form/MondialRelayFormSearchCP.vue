@@ -1,14 +1,16 @@
 
 <template>
   <div class="mondial-relay-header">
+    <div>
     <img
       src="https://widget.mondialrelay.com/parcelshop-picker/v4_0/css/imgs/mr-64.png"
       alt="mondial relay"
     />
+    </div>
 
     <div class="mondial-relay-form">
       <div class="mondial-relay-form__countries">
-        <CountrySelector></CountrySelector>
+        <MondialRelayCountrySelector></MondialRelayCountrySelector>
       </div>
       <div class="mondial-relay-form__cp">
         <input
@@ -22,7 +24,7 @@
       </div>
       <div class="mondial-relay-form__search">
         <img
-          src="./../assets/images/search.svg"
+          src="./../../assets/images/search.svg"
           v-on:click="search()"
         />
       </div>
@@ -32,11 +34,11 @@
 
 
 <script>
-import CountrySelector from "./CountrySelector";
+import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
 export default {
   name: "Header",
   components: {
-    CountrySelector,
+    MondialRelayCountrySelector,
   },
   data() {
     return {

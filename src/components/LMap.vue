@@ -61,9 +61,10 @@ export default {
         )
       );
       newMarkers.forEach((mark) => {
-        marker([this.parseCoords(mark.Lat), this.parseCoords(mark.Long)]).addTo(
-          this.lmap
-        );
+        console.log(mark);
+        marker([this.parseCoords(mark.Lat), this.parseCoords(mark.Long)])
+          .addTo(this.lmap)
+          .bindPopup(mark.HoursHtmlTable);
       });
     },
   },
@@ -80,5 +81,14 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 600px;
+}
+.PR-Hours {
+  font-size: 10px;
+  border: 0;
+  height: 22px;
+}
+
+.PR-Hours .d {
+  background: #eee;
 }
 </style>
