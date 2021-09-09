@@ -1,7 +1,12 @@
 
 <template>
   <div class="mondial-relay-widget">
-    <MondialRelayFormSearchCP @searchByCp="searchByCp" />
+    <MondialRelayHeader>
+      <template v-slot:formSearchCp>
+        <MondialRelayFormSearchCP @searchByCp="searchByCp" />
+      </template>
+    </MondialRelayHeader>
+    
     <MondialRelayErrorMessage :message="messageError" v-if="hasError" />
     <div v-show="!hasError">
       <div class="mondial-relay-tab hide-desktop">
@@ -63,6 +68,7 @@ import { jsonp } from "vue-jsonp";
 import LMap from "./components/LMap";
 import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
 import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
+import MondialRelayHeader from "./components/MondialRelayHeader";
 import "./assets/scss/global.scss";
 
 export default {
@@ -71,6 +77,7 @@ export default {
     LMap,
     MondialRelayFormSearchCP,
     MondialRelayErrorMessage,
+    MondialRelayHeader,
   },
   name: "WidgetMondialRelay",
   data() {
