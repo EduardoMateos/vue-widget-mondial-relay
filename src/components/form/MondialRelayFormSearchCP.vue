@@ -1,33 +1,21 @@
 
 <template>
-  <div class="mondial-relay-header">
-    <div>
-    <img
-      src="https://widget.mondialrelay.com/parcelshop-picker/v4_0/css/imgs/mr-64.png"
-      alt="mondial relay"
-    />
+  <div class="mondial-relay-form">
+    <div class="mondial-relay-form__countries">
+      <MondialRelayCountrySelector></MondialRelayCountrySelector>
     </div>
-
-    <div class="mondial-relay-form">
-      <div class="mondial-relay-form__countries">
-        <MondialRelayCountrySelector></MondialRelayCountrySelector>
-      </div>
-      <div class="mondial-relay-form__cp">
-        <input
-          class="mondial-relay-input"
-          id="cp"
-          name="cp"
-          v-model="cp"
-          required
-          placeholder="CP"
-        />
-      </div>
-      <div class="mondial-relay-form__search">
-        <img
-          src="./../../assets/images/search.svg"
-          v-on:click="search()"
-        />
-      </div>
+    <div class="mondial-relay-form__cp">
+      <input
+        class="mondial-relay-input"
+        id="cp"
+        name="cp"
+        v-model="cp"
+        required
+        placeholder="CP"
+      />
+    </div>
+    <div class="mondial-relay-form__search">
+      <img src="./../../assets/images/search.svg" v-on:click="search()" />
     </div>
   </div>
 </template>
@@ -54,15 +42,8 @@ export default {
 </script>
 
 <style lang="scss">
-.mondial-relay-header {
-  //display: flex;
-  flex-wrap: wrap;
-  margin: 12px;
-}
-
 .mondial-relay-form {
   margin: auto;
-  text-align: right;
   &__countries {
     display: inline-block;
     width: 78px;
@@ -72,7 +53,7 @@ export default {
     width: 52px;
     margin-right: 28px;
   }
-  &__search{
+  &__search {
     display: inline-block;
     margin-left: 12px;
     width: 22px;
