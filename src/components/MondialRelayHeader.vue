@@ -27,21 +27,27 @@ export default {
 
 <style lang="scss">
 .mondial-relay-header {
-  display: flex;
-  flex-wrap: wrap;
+  @media (min-width: 576px) {
+    display: flex;
+  }
+  @media (max-width: 576px) {
+    display: row;
+  }
+  
   text-align: center;
 
   &__logo {
     width: 64px;
+    @media (max-width: 576px) {
+      margin: auto;
+    }
   }
 
   &__column {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    @media (max-width: 576px) {
-      flex: 100%;
-    }
+    padding: 20px;
     @media (min-width: 576px) {
       flex: 50%;
     }

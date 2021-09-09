@@ -12,7 +12,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet/dist/images/marker-icon.png";
 
 export default {
-  name: "LMap",
+  name: "MondialRelayMap",
   props: ["parcelShopList", "parcelSelected"],
   data() {
     return {

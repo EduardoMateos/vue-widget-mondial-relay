@@ -3,7 +3,7 @@
   <div class="mondial-relay-widget">
     <MondialRelayHeader>
       <template v-slot:formSearchCp>
-        <MondialRelayFormSearchCP @searchByCp="searchByCp" />
+        <MondialRelayFormSearchCP @searchByCp="searchByCp" :defaultPostCode="defaultPostCode" />
       </template>
     </MondialRelayHeader>
     
@@ -52,7 +52,7 @@
           class="mondial-relay-right-column"
           :class="mobileShowMap ? 'hide-mobile' : ''"
         >
-          <LMap
+          <MondialRelayMap
             :parcelShopList="parcelShopList"
             :parcelSelected="parcelSelected"
           />
@@ -65,16 +65,16 @@
 
 <script>
 import { jsonp } from "vue-jsonp";
-import LMap from "./components/LMap";
+import MondialRelayMap from "./components/MondialRelayMap";
 import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
 import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import MondialRelayHeader from "./components/MondialRelayHeader";
 import "./assets/scss/global.scss";
 
 export default {
-  props: ["brand"],
+  props: ["brand","defaultPostCode"],
   components: {
-    LMap,
+    MondialRelayMap,
     MondialRelayFormSearchCP,
     MondialRelayErrorMessage,
     MondialRelayHeader,
@@ -93,7 +93,7 @@ export default {
         Latitude: "",
         Longitude: "",
         NbResults: "7",
-        PostCode: "28037",
+        PostCode: this.defaultPostCode,
         SearchDelay: "",
         SearchFar: "75",
         Service: "",

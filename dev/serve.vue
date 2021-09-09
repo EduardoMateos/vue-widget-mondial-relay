@@ -13,7 +13,11 @@ export default Vue.extend({
 <template>
   <div style="text-align:center;">
     <div id="app" style="max-width:980px;margin:auto">
-      <widget-mondial-relay brand="XXXX" />
+      <widget-mondial-relay 
+        brand="XXXX" 
+        defaultPostCode="28032"
+        defaultCountry="ES"
+       />
     </div>
   </div>
 </template>
