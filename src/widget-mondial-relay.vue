@@ -3,10 +3,14 @@
   <div class="mondial-relay-widget">
     <MondialRelayHeader>
       <template v-slot:formSearchCp>
-        <MondialRelayFormSearchCP @searchByCp="searchByCp" :defaultPostCode="defaultPostCode" />
+        <MondialRelayFormSearchCP
+          @search="search"
+          :defaultPostCode="defaultPostCode"
+          :defaultCountry="defaultCountry"
+        />
       </template>
     </MondialRelayHeader>
-    
+
     <MondialRelayErrorMessage :message="messageError" v-if="hasError" />
     <div v-show="!hasError">
       <div class="mondial-relay-tab hide-desktop">
@@ -72,7 +76,7 @@ import MondialRelayHeader from "./components/MondialRelayHeader";
 import "./assets/scss/global.scss";
 
 export default {
-  props: ["brand","defaultPostCode"],
+  props: ["brand", "defaultPostCode", "defaultCountry"],
   components: {
     MondialRelayMap,
     MondialRelayFormSearchCP,
@@ -89,7 +93,7 @@ export default {
         Brand: this.brand,
         ClientContainerId: "Zone_Widget",
         ColLivMod: "24R",
-        Country: "ES",
+        Country: this.defaultCountry,
         Latitude: "",
         Longitude: "",
         NbResults: "7",
@@ -112,8 +116,9 @@ export default {
     selectParcel(parcel) {
       this.parcelSelected = parcel;
     },
-    searchByCp(cp) {
-      this.searchParcelShop.PostCode = cp;
+    search(data) {
+      this.searchParcelShop.PostCode = data.cp;
+      this.searchParcelShop.Country = data.country;
       this.getParcelShopList();
     },
     getParcelShopList() {
@@ -125,7 +130,7 @@ export default {
           Brand: this.brand,
           ClientContainerId: "Zone_Widget",
           ColLivMod: "24R",
-          Country: "ES",
+          Country: this.searchParcelShop.Country,
           Latitude: "",
           Longitude: "",
           NbResults: "7",

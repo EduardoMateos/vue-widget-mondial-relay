@@ -2,7 +2,7 @@
 <template>
   <div class="mondial-relay-form">
     <div class="mondial-relay-form__countries">
-      <MondialRelayCountrySelector></MondialRelayCountrySelector>
+      <MondialRelayCountrySelector @changeCountry="changeCountry" :countrySelected="country"></MondialRelayCountrySelector>
     </div>
     <div class="mondial-relay-form__cp">
       <input
@@ -24,7 +24,7 @@
 <script>
 import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
 export default {
-  props: ['defaultPostCode'],
+  props: ['defaultPostCode', 'defaultCountry'],
   name: "Header",
   components: {
     MondialRelayCountrySelector,
@@ -32,12 +32,19 @@ export default {
   data() {
     return {
       cp: this.defaultPostCode,
+      country: this.defaultCountry
     };
   },
   methods: {
     search() {
-      this.$emit("searchByCp", this.cp);
+      this.$emit("search", {
+        cp: this.cp,
+        country: this.country
+      });
     },
+    changeCountry(country){
+      this.country = country
+    }
   },
 };
 </script>

@@ -7,4 +7,4 @@ _Mondial Relay Widget https://widget.mondialrelay.com/parcelshop-picker/v4_0/cod
 
 ### Install 🔧
 
-_npm i vue-widget-mondial-relay_
+`npm install vue-widget-mondial-relay`

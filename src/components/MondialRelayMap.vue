@@ -61,7 +61,6 @@ export default {
         )
       );
       newMarkers.forEach((mark) => {
-        console.log(mark);
         marker([this.parseCoords(mark.Lat), this.parseCoords(mark.Long)])
           .addTo(this.lmap)
           .bindPopup(mark.HoursHtmlTable);
