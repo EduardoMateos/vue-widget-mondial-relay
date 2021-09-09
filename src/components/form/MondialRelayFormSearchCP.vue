@@ -24,13 +24,14 @@
 <script>
 import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
 export default {
+  props: ['defaultPostCode'],
   name: "Header",
   components: {
     MondialRelayCountrySelector,
   },
   data() {
     return {
-      cp: 28037,
+      cp: this.defaultPostCode,
     };
   },
   methods: {
