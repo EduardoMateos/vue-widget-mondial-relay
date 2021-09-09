@@ -14,7 +14,7 @@ export default Vue.extend({
   <div style="text-align:center;">
     <div id="app" style="max-width:980px;margin:auto">
       <widget-mondial-relay 
-        brand="E1FUTBOL" 
+        brand="BDTEST  " 
         defaultPostCode="28032"
         defaultCountry="ES"
        />
