@@ -8,11 +8,24 @@
         name="cp"
         required
         size="8"
+        v-on:click="open = !open"
       />
-      <div class="mondial-relay-selector__input__flag">
-        <img src="./../../assets/images/spain-flag.svg" width="30px" />
+      <div
+        class="mondial-relay-selector__input__flag"
+        v-on:click="open = !open"
+      >
+        <img v-if="countrySelected == 'ES'" src="@/assets/images/es-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'AT'" src="@/assets/images/at-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'FR'" src="@/assets/images/fr-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'DE'" src="@/assets/images/de-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'LU'" src="@/assets/images/lu-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'NL'" src="@/assets/images/nl-flag.svg" width="30px" />
+        <img v-if="countrySelected == 'BE'" src="@/assets/images/be-flag.svg" width="30px" />
       </div>
-      <div class="mondial-relay-selector__input__toggle">
+      <div
+        class="mondial-relay-selector__input__toggle"
+        v-on:click="open = !open"
+      >
         <svg
           data-v-46e105de=""
           mlns="http://www.w3.org/2000/svg"
@@ -29,25 +42,99 @@
           <path data-v-46e105de="" fill="none" d="M0 0h24v24H0V0z"></path>
         </svg>
       </div>
+      <transition name="fade">
+        <div class="mondial-relay-selector__dropdown" v-if="open">
+          <ul>
+            <li
+              :class="
+                countrySelected == 'FR'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('FR')"
+            >
+              <img src="@/assets/images/fr-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'ES'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('ES')"
+            >
+              <img src="@/assets/images/es-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'BE'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('BE')"
+            >
+              <img src="@/assets/images/be-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'NL'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('NL')"
+            >
+              <img src="@/assets/images/nl-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'LU'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('LU')"
+            >
+              <img src="@/assets/images/lu-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'DE'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('DE')"
+            >
+              <img src="@/assets/images/de-flag.svg" width="30px" />
+            </li>
+            <li
+              :class="
+                countrySelected == 'AT'
+                  ? 'mondial-relay-selector__dropdown--selected'
+                  : ''
+              "
+              @click="selectCountry('AT')"
+            >
+              <img src="@/assets/images/at-flag.svg" width="30px" />
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CountrySelector",
+  props: ["countrySelected"],
   data() {
     return {
-      countries: [
-        {
-          name: "spain",
-        },
-        {
-          name: "francia",
-        },
-      ],
-      open: true,
+      open: false,
     };
+  },
+  methods: {
+    selectCountry(country) {
+      this.$emit("changeCountry", country);
+      this.open = false;
+    },
   },
 };
 </script>
@@ -56,6 +143,34 @@ export default {
 <style lang="scss">
 .mondial-relay-selector {
   position: relative;
+
+  &__dropdown {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    z-index: 500;
+    border-right: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
+    border-left: 1px solid #ced4da;
+    ul {
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+      li {
+        padding: 6px;
+        cursor: pointer;
+        &:hover {
+          background-color: #f0f0f0;
+          border-left: solid 2px #ca0047;
+        }
+      }
+    }
+    &--selected {
+      background-color: #f0f0f0;
+      border-left: solid 2px #ca0047;
+    }
+  }
 
   &__input {
     display: block;
