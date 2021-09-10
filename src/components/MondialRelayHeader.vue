@@ -1,7 +1,9 @@
 
 <template>
   <div class="mondial-relay-header">
-    <div class="mondial-relay-header__column">
+    <div
+      class="mondial-relay-header__column mondial-relay-header__column--left"
+    >
       <img
         src="https://widget.mondialrelay.com/parcelshop-picker/v4_0/css/imgs/mr-64.png"
         alt="mondial relay"
@@ -9,9 +11,7 @@
       />
     </div>
     <div
-      class="
-        mondial-relay-header__column mondial-relay-header__column--align-right
-      "
+      class="mondial-relay-header__column mondial-relay-header__column--right"
     >
       <slot name="formSearchCp"></slot>
     </div>
@@ -27,32 +27,38 @@ export default {
 
 <style lang="scss">
 .mondial-relay-header {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 50% 50%;
   @media (min-width: 576px) {
-    display: flex;
+    grid-template-columns: 50% 50%;
   }
   @media (max-width: 576px) {
-    display: row;
+    grid-template-columns: 100%;
   }
-  
-  text-align: center;
+
+  &__column {
+    display: flex;
+    padding: 8px 20px 8px 20px;
+    align-items: center;
+
+    @media (min-width: 576px) {
+      &--left {
+        justify-content: flex-start;
+      }
+      &--right {
+        justify-content: flex-end;
+      }
+    }
+    @media (max-width: 576px) {
+      justify-content: center;
+    }
+  }
 
   &__logo {
     width: 64px;
     @media (max-width: 576px) {
       margin: auto;
-    }
-  }
-
-  &__column {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    padding: 20px;
-    @media (min-width: 576px) {
-      flex: 50%;
-    }
-    &--align-right {
-      text-align: right;
     }
   }
 }
