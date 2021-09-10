@@ -63,7 +63,9 @@ export default {
       newMarkers.forEach((mark) => {
         marker([this.parseCoords(mark.Lat), this.parseCoords(mark.Long)])
           .addTo(this.lmap)
-          .bindPopup(mark.HoursHtmlTable);
+          .bindPopup(mark.Nom+'<br>'+mark.HoursHtmlTable, {
+            minWidth: 292,
+          });
       });
     },
   },
@@ -75,18 +77,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #map {
   width: 100%;
   height: 100%;
   min-height: 600px;
 }
 .PR-Hours {
+  width: 100%;
+  color: #666;
   font-size: 10px;
-  border: 0;
-  height: 22px;
 }
-
+.PR-Hours th {
+  width: 76px;
+}
+.PR-Hours td {
+  width: 76px;
+}
 .PR-Hours .d {
   background: #eee;
 }

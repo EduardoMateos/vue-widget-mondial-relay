@@ -1,8 +1,11 @@
 
 <template>
-  <div class="mondial-relay-form">
+  <form method="post" @submit="search" class="mondial-relay-form">
     <div class="mondial-relay-form__countries">
-      <MondialRelayCountrySelector @changeCountry="changeCountry" :countrySelected="country"></MondialRelayCountrySelector>
+      <MondialRelayCountrySelector
+        @changeCountry="changeCountry"
+        :countrySelected="country"
+      ></MondialRelayCountrySelector>
     </div>
     <div class="mondial-relay-form__cp">
       <input
@@ -14,17 +17,21 @@
         placeholder="CP"
       />
     </div>
-    <div class="mondial-relay-form__search">
-      <img src="./../../assets/images/search.svg" v-on:click="search()" />
-    </div>
-  </div>
+
+    <button class="mondial-relay-form__search">
+      <img
+        src="./../../assets/images/search.svg"
+        alt="search"
+      />
+    </button>
+  </form>
 </template>
 
 
 <script>
 import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
 export default {
-  props: ['defaultPostCode', 'defaultCountry'],
+  props: ["defaultPostCode", "defaultCountry"],
   name: "Header",
   components: {
     MondialRelayCountrySelector,
@@ -32,26 +39,26 @@ export default {
   data() {
     return {
       cp: this.defaultPostCode,
-      country: this.defaultCountry
+      country: this.defaultCountry,
     };
   },
   methods: {
-    search() {
+    async search(e) {
       this.$emit("search", {
         cp: this.cp,
-        country: this.country
+        country: this.country,
       });
+      e.preventDefault();
     },
-    changeCountry(country){
-      this.country = country
-    }
+    changeCountry(country) {
+      this.country = country;
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .mondial-relay-form {
-  margin: auto;
   &__countries {
     display: inline-block;
     width: 78px;
@@ -64,9 +71,12 @@ export default {
   &__search {
     display: inline-block;
     margin-left: 12px;
-    width: 22px;
+    width: 38px;
     vertical-align: middle;
     cursor: pointer;
+    background-color: white;
+    color: #fff;
+    border: 0;
   }
 }
 

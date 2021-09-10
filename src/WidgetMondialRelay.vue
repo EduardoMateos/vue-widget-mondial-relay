@@ -76,7 +76,7 @@ import MondialRelayHeader from "./components/MondialRelayHeader";
 import "./assets/scss/global.scss";
 
 export default {
-  props: ["brand", "defaultPostCode", "defaultCountry"],
+  props: ["brand", "defaultPostCode", "defaultCountry", "maxResults", "deliveryMode"],
   components: {
     MondialRelayMap,
     MondialRelayFormSearchCP,
@@ -92,11 +92,11 @@ export default {
       searchParcelShop: {
         Brand: this.brand,
         ClientContainerId: "Zone_Widget",
-        ColLivMod: "24R",
+        ColLivMod: this.deliveryMode,
         Country: this.defaultCountry,
         Latitude: "",
         Longitude: "",
-        NbResults: "7",
+        NbResults: this.maxResults,
         PostCode: this.defaultPostCode,
         SearchDelay: "",
         SearchFar: "75",
@@ -114,6 +114,7 @@ export default {
   },
   methods: {
     selectParcel(parcel) {
+      this.$emit("select", parcel);
       this.parcelSelected = parcel;
     },
     search(data) {
@@ -129,11 +130,11 @@ export default {
           callbackName: "receive",
           Brand: this.brand,
           ClientContainerId: "Zone_Widget",
-          ColLivMod: "24R",
+          ColLivMod: this.searchParcelShop.ColLivMod,
           Country: this.searchParcelShop.Country,
           Latitude: "",
           Longitude: "",
-          NbResults: "7",
+          NbResults: this.searchParcelShop.NbResults,
           PostCode: this.searchParcelShop.PostCode,
           SearchDelay: "",
           SearchFar: "75",
