@@ -9,6 +9,10 @@ import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
+import image from '@rollup/plugin-image';
+import postcss from 'rollup-plugin-postcss'
+import url from 'postcss-url';
+import atImport from 'postcss-import';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -47,10 +51,22 @@ const baseConfig = {
       },
     },
     postVue: [
+      image(),
+      postcss({
+        extract: true,
+        plugins: [
+          atImport(),
+          url({
+            url: "inline", // enable inline assets using base64 encoding
+            maxSize: 10, // maximum file size to inline (in kilobytes)
+            fallback: "copy", // fallback method to use if max size is exceeded
+          })
+        ]
+      }),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       }),
-      commonjs(),
+      commonjs()
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -86,7 +102,7 @@ if (!argv.format || argv.format === 'es') {
     output: {
       file: 'dist/widget-mondial-relay.esm.js',
       format: 'esm',
-      exports: 'named',
+      exports: 'named'
     },
     plugins: [
       replace(baseConfig.plugins.replace),
@@ -166,6 +182,5 @@ if (!argv.format || argv.format === 'iife') {
   };
   buildFormats.push(unpkgConfig);
 }
-
 // Export config
 export default buildFormats;

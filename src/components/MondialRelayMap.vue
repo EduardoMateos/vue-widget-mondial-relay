@@ -9,7 +9,6 @@
 <script>
 import { map, tileLayer, marker, LatLng, Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet/dist/images/marker-icon.png";
 
 export default {
   name: "MondialRelayMap",
@@ -17,6 +16,7 @@ export default {
   data() {
     return {
       lmap: null,
+      lmarks: [],
     };
   },
   mounted() {
@@ -60,18 +60,33 @@ export default {
           this.parseCoords(newMarkers[0].Long)
         )
       );
+
+      this.lmarks.forEach((mark) => {
+        this.lmap.removeLayer(mark);
+      });
+
       newMarkers.forEach((mark) => {
-        marker([this.parseCoords(mark.Lat), this.parseCoords(mark.Long)])
+        let item = marker([
+          this.parseCoords(mark.Lat),
+          this.parseCoords(mark.Long),
+        ])
           .addTo(this.lmap)
-          .bindPopup(mark.Nom+'<br>'+mark.HoursHtmlTable, {
+          .bindPopup(mark.Nom + "<br>" + mark.HoursHtmlTable, {
             minWidth: 292,
+          })
+          .on("click", () => {
+            this.selectParcel(mark);
           });
+        this.lmarks.push(item);
       });
     },
   },
   methods: {
     parseCoords(cord) {
       return cord.replace(",", ".");
+    },
+    selectParcel(parcel) {
+      this.$emit("selectParcel", parcel);
     },
   },
 };
