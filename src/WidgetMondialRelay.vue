@@ -59,6 +59,7 @@
           <MondialRelayMap
             :parcelShopList="parcelShopList"
             :parcelSelected="parcelSelected"
+            @selectParcel="selectParcel"
           />
         </div>
       </div>
@@ -73,7 +74,6 @@ import MondialRelayMap from "./components/MondialRelayMap";
 import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
 import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import MondialRelayHeader from "./components/MondialRelayHeader";
-import "./assets/scss/global.scss";
 
 export default {
   props: ["brand", "defaultPostCode", "defaultCountry", "maxResults", "deliveryMode"],

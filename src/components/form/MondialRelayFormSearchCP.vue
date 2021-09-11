@@ -20,7 +20,7 @@
 
     <button class="mondial-relay-form__search">
       <img
-        src="./../../assets/images/search.svg"
+        src="@/assets/images/search.svg"
         alt="search"
       />
     </button>
