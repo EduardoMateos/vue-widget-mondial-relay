@@ -1,6 +1,12 @@
 
 <template>
   <form method="post" @submit="search" class="mondial-relay-form">
+    <div class="mondial-relay-form__city">
+      <MondialRelayCitySearch
+        @setPostCode="changeCP"
+        :country="country"
+      ></MondialRelayCitySearch>
+    </div>
     <div class="mondial-relay-form__countries">
       <MondialRelayCountrySelector
         @changeCountry="changeCountry"
@@ -19,10 +25,7 @@
     </div>
 
     <button class="mondial-relay-form__search">
-      <img
-        src="@/assets/images/search.svg"
-        alt="search"
-      />
+      <img src="@/assets/images/search.svg" alt="search" />
     </button>
   </form>
 </template>
@@ -30,11 +33,14 @@
 
 <script>
 import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
+import MondialRelayCitySearch from "./MondialRelayCitySearch";
+
 export default {
   props: ["defaultPostCode", "defaultCountry"],
   name: "Header",
   components: {
     MondialRelayCountrySelector,
+    MondialRelayCitySearch,
   },
   data() {
     return {
@@ -53,12 +59,23 @@ export default {
     changeCountry(country) {
       this.country = country;
     },
+    changeCP(postCode) {
+      this.cp = postCode;
+      this.$emit("search", {
+        cp: postCode,
+        country: this.country,
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .mondial-relay-form {
+  &__city {
+    display: inline-block;
+    margin-right: 30px;
+  }
   &__countries {
     display: inline-block;
     width: 78px;

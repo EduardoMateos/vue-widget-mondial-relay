@@ -76,7 +76,33 @@ import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import MondialRelayHeader from "./components/MondialRelayHeader";
 
 export default {
-  props: ["brand", "defaultPostCode", "defaultCountry", "maxResults", "deliveryMode"],
+  props: {
+    brand: {
+      default: function () {
+        return "BDTEST  ";
+      },
+    },
+    defaultPostCode: {
+      default: function () {
+        return 59000;
+      },
+    },
+    defaultCountry: {
+      default: function () {
+        return "FR";
+      },
+    },
+    maxResults: {
+      default: function () {
+        return "7";
+      },
+    },
+    deliveryMode: {
+      default: function () {
+        return "24R";
+      },
+    },
+  },
   components: {
     MondialRelayMap,
     MondialRelayFormSearchCP,
