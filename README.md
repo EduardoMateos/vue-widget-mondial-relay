@@ -14,13 +14,13 @@ _Mondial Relay Widget https://widget.mondialrelay.com/parcelshop-picker/v4_0/cod
 
 ## Props API
 
-| Props                     | Type            | Required | Default             |
-|---------------------------|-----------------|----------|---------------------|
-| brand                     | String          | true     |                     |
-| defaultPostCode           | String          | false    | 59000               |
-| defaultCountry            | String          | false    | FR                  |
-| maxResults                | Int             | false    | 7                   |
-| deliveryMode              | String          | false    | 24R                 |
+| Props                     | Type            | Required | Default             | Details                                          |
+|---------------------------|-----------------|----------|---------------------|--------------------------------------------------|
+| brand                     | String          | true     |                     | Provider by Mondial Relay                        |
+| defaultPostCode           | String          | false    | 59000               | Default postal Code used for search at loading   |
+| defaultCountry            | String          | false    | FR                  | FR, ES, BE, NL, LU, DE, AT                       |            
+| maxResults                | Int             | false    | 7                   | Must be less than 20                             |
+| deliveryMode              | String          | false    | 24R                 | Standard [24R], XL [24L], XXL [24X], Drive [DRI] |
 
 ## Example
 

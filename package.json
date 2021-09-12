@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "leaflet": "^1.7.1",
+    "vue-click-outside": "^1.1.0",
     "vue-jsonp": "^2.0.0"
   },
   "devDependencies": {
