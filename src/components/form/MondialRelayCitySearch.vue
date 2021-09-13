@@ -6,6 +6,7 @@
         id="city"
         name="city"
         @input="searchCity"
+        :placeholder="findCityText"
         autocomplete="nope"
         v-model="city"
       />
@@ -22,7 +23,7 @@
           </ul>
           <ul v-if="this.cities.length == 0">
             <li @click="close">
-              Sin resultados
+              {{cityNoResults}}
             </li>
           </ul>
         </div>
@@ -36,7 +37,7 @@ import { jsonp } from "vue-jsonp";
 import ClickOutside from "vue-click-outside";
 
 export default {
-  props: ["country"],
+  props: ["country", "findCityText", "cityNoResults"],
   data() {
     return {
       city: "",

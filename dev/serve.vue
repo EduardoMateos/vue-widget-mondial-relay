@@ -17,13 +17,14 @@ export default Vue.extend({
 
 <template>
   <div style="text-align: center">
-    <div id="app" style="max-width: 980px; margin: auto">
+    <div id="app" style="margin: auto;">
       <WidgetMondialRelay
         brand="BDTEST  "
-        defaultPostCode="59000"
-        defaultCountry="FR"
+        defaultPostCode="28037"
+        defaultCountry="ES"
         maxResults="7"
         deliveryMode="24R"
+        allowedCountries="['ES']"
         @select="setParcelSelected($event)"
       />
     </div>

@@ -21,6 +21,8 @@ _Mondial Relay Widget https://widget.mondialrelay.com/parcelshop-picker/v4_0/cod
 | defaultCountry            | String          | false    | FR                  | FR, ES, BE, NL, LU, DE, AT                       |            
 | maxResults                | Int             | false    | 7                   | Must be less than 20                             |
 | deliveryMode              | String          | false    | 24R                 | Standard [24R], XL [24L], XXL [24X], Drive [DRI] |
+| allowedCountries          | Array           | false    | *                   | FR, ES, BE, NL, LU, DE, AT                       |
+
 
 ## Example
 
