@@ -46,6 +46,7 @@
         <div class="mondial-relay-selector__dropdown" v-if="open">
           <ul>
             <li
+            v-if="allowedCountries.includes('FR')"
               :class="
                 countrySelected == 'FR'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -56,6 +57,7 @@
               <img src="@/assets/images/fr-flag.svg" width="30px" />
             </li>
             <li
+            v-if="allowedCountries.includes('ES')"
               :class="
                 countrySelected == 'ES'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -66,6 +68,7 @@
               <img src="@/assets/images/es-flag.svg" width="30px" />
             </li>
             <li
+            v-if="allowedCountries.includes('BE')"
               :class="
                 countrySelected == 'BE'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -76,6 +79,7 @@
               <img src="@/assets/images/be-flag.svg" width="30px" />
             </li>
             <li
+            v-if="allowedCountries.includes('NL')"
               :class="
                 countrySelected == 'NL'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -86,6 +90,7 @@
               <img src="@/assets/images/nl-flag.svg" width="30px" />
             </li>
             <li
+            v-if="allowedCountries.includes('LU')"
               :class="
                 countrySelected == 'LU'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -96,6 +101,7 @@
               <img src="@/assets/images/lu-flag.svg" width="30px" />
             </li>
             <li
+            v-if="allowedCountries.includes('DE')"
               :class="
                 countrySelected == 'DE'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -106,6 +112,7 @@
               <img src="@/assets/images/de-flag.svg" width="30px" />
             </li>
             <li
+              v-if="allowedCountries.includes('AT')"
               :class="
                 countrySelected == 'AT'
                   ? 'mondial-relay-selector__dropdown--selected'
@@ -124,7 +131,7 @@
 
 <script>
 export default {
-  props: ["countrySelected"],
+  props: ["countrySelected", "allowedCountries"],
   data() {
     return {
       open: false,

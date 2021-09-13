@@ -1,12 +1,14 @@
 
 <template>
   <div class="mondial-relay-widget">
-    <MondialRelayHeader>
+    <MondialRelayHeader :headerTitle="t.headerTitle">
       <template v-slot:formSearchCp>
         <MondialRelayFormSearchCP
           @search="search"
           :defaultPostCode="defaultPostCode"
           :defaultCountry="defaultCountry"
+          :allowedCountries="allowedCountries"
+          :t="t"
         />
       </template>
     </MondialRelayHeader>
@@ -74,6 +76,7 @@ import MondialRelayMap from "./components/MondialRelayMap";
 import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
 import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import MondialRelayHeader from "./components/MondialRelayHeader";
+import locales from "./assets/locales";
 
 export default {
   props: {
@@ -102,6 +105,12 @@ export default {
         return "24R";
       },
     },
+    allowedCountries: {
+      default: function () {
+        return ['FR', 'ES', 'BE', 'NL', 'LU', 'DE', 'AT'];
+      },
+    },
+    translations: { type: Object, default: null },
   },
   components: {
     MondialRelayMap,
@@ -110,6 +119,14 @@ export default {
     MondialRelayHeader,
   },
   name: "WidgetMondialRelay",
+  computed: {
+    t() {
+      return {
+        ...locales,
+        ...this.translations,
+      };
+    },
+  },
   data() {
     return {
       messageError: null,
@@ -188,12 +205,16 @@ export default {
 
 <style lang="scss">
 .mondial-relay-widget {
+  background-color: white;
   border: solid 1px #ddd;
+  max-width: 980px;
+  margin: auto;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 .mondial-relay-row {
   display: flex;
+  max-height: 566px;
 }
 
 @media (max-width: 576px) {
@@ -214,7 +235,7 @@ export default {
     flex: 100%;
   }
   @media (min-width: 576px) {
-    flex: 30%;
+    flex: 35%;
   }
 }
 .mondial-relay-right-column {
@@ -223,12 +244,12 @@ export default {
     flex: 100%;
   }
   @media (min-width: 576px) {
-    flex: 70%;
+    flex: 65%;
   }
 }
 .mondial-relay-parcel-list {
   overflow-y: scroll;
-  max-height: 100%;
+  height: 450px;
   &__shop {
     padding: 8px;
     cursor: pointer;

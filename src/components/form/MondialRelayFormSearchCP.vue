@@ -5,12 +5,15 @@
       <MondialRelayCitySearch
         @setPostCode="changeCP"
         :country="country"
+        :findCityText="t.findCityText"
+        :cityNoResults="t.cityNoResults"
       ></MondialRelayCitySearch>
     </div>
     <div class="mondial-relay-form__countries">
       <MondialRelayCountrySelector
         @changeCountry="changeCountry"
         :countrySelected="country"
+        :allowedCountries="allowedCountries"
       ></MondialRelayCountrySelector>
     </div>
     <div class="mondial-relay-form__cp">
@@ -20,7 +23,7 @@
         name="cp"
         v-model="cp"
         required
-        placeholder="CP"
+        :placeholder="t.findCpText"
       />
     </div>
 
@@ -36,7 +39,7 @@ import MondialRelayCountrySelector from "./MondialRelayCountrySelector";
 import MondialRelayCitySearch from "./MondialRelayCitySearch";
 
 export default {
-  props: ["defaultPostCode", "defaultCountry"],
+  props: ["defaultPostCode", "defaultCountry", "allowedCountries", "t"],
   name: "Header",
   components: {
     MondialRelayCountrySelector,
@@ -73,12 +76,18 @@ export default {
 <style lang="scss">
 .mondial-relay-form {
   &__city {
-    display: inline-block;
-    margin-right: 30px;
+    margin-right: 12px;
+    @media (min-width: 576px) {
+      display: inline-block;
+    }
+        @media (max-width: 576px) {
+      margin-bottom:8px;
+    }
   }
   &__countries {
     display: inline-block;
     width: 78px;
+
   }
   &__cp {
     display: inline-block;
