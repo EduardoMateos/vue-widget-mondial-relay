@@ -1,6 +1,6 @@
 {
   "name": "vue-widget-mondial-relay",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "",
   "main": "dist/widget-mondial-relay.ssr.js",
   "browser": "dist/widget-mondial-relay.esm.js",

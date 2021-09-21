@@ -79,20 +79,19 @@ export default {
     margin-right: 12px;
     @media (min-width: 576px) {
       display: inline-block;
+      width: 142px;
     }
-        @media (max-width: 576px) {
-      margin-bottom:8px;
+    @media (max-width: 576px) {
+      margin-bottom: 8px;
     }
   }
   &__countries {
     display: inline-block;
-    width: 78px;
-
+    margin-right: 12px;
   }
   &__cp {
     display: inline-block;
-    width: 52px;
-    margin-right: 28px;
+    width: 82px;
   }
   &__search {
     display: inline-block;
@@ -107,17 +106,18 @@ export default {
 }
 
 .mondial-relay-input {
-  position: relative;
-  display: block;
-  padding: 0.375rem 0.75rem;
+  width: 100%;
+  padding: .375rem .75rem;
   font-size: 1rem;
   line-height: 1.5;
+  color: #495057;
   background-color: #fff;
   background-clip: padding-box;
+  margin: 8px 0;
+  display: inline-block;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  max-width: 100%;
+  border-radius: .25rem;
+  box-sizing: border-box;
 
   &__toggle {
     position: absolute;
