@@ -88,18 +88,18 @@ export default {
 .mondial-relay-city {
   position: relative;
   &__input {
-    position: relative;
-    display: block;
-    padding: 0.375rem 0.75rem;
+    width: 100%;
+    padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
+    color: #495057;
     background-color: #fff;
     background-clip: padding-box;
+    margin: 8px 0;
+    display: inline-block;
     border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    max-width: 100%;
-
+    border-radius: .25rem;
+    box-sizing: border-box;
     &:focus {
       color: #495057;
       background-color: #fff;
