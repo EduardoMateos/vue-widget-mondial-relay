@@ -14,7 +14,7 @@
     </MondialRelayHeader>
 
     <MondialRelayErrorMessage :message="messageError" v-if="hasError" />
-    <div v-show="!hasError">
+    <div v-if="!hasError">
       <div class="mondial-relay-tab hide-desktop">
         <button
           :class="mobileShowMap == true ? 'active' : ''"
@@ -107,7 +107,7 @@ export default {
     },
     allowedCountries: {
       default: function () {
-        return ['FR', 'ES', 'BE', 'NL', 'LU', 'DE', 'AT'];
+        return ["FR", "ES", "BE", "NL", "LU", "DE", "AT"];
       },
     },
     translations: { type: Object, default: null },
@@ -161,9 +161,11 @@ export default {
       this.parcelSelected = parcel;
     },
     search(data) {
-      this.searchParcelShop.PostCode = data.cp;
-      this.searchParcelShop.Country = data.country;
-      this.getParcelShopList();
+      if (data.cp != this.searchParcelShop.PostCode) {
+        this.searchParcelShop.PostCode = data.cp;
+        this.searchParcelShop.Country = data.country;
+        this.getParcelShopList();
+      }
     },
     getParcelShopList() {
       jsonp(
@@ -186,17 +188,21 @@ export default {
           VacationBefore: "",
           Weight: "",
         }
-      ).then((data) => {
-        if (data.Error) {
-          this.parcelShopList = [];
-          this.messageError = data.Error;
-          this.hasError = true;
-        } else {
-          this.parcelShopList = data.PRList;
-          this.messageError = null;
-          this.hasError = false;
-        }
-      });
+      )
+        .then((data) => {
+          if (data.Error) {
+            this.parcelShopList = [];
+            this.messageError = data.Error;
+            this.hasError = true;
+          } else {
+            this.parcelShopList = data.PRList;
+            this.messageError = null;
+            this.hasError = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
