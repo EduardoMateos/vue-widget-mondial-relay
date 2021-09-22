@@ -17,6 +17,7 @@ export default {
     return {
       lmap: null,
       lmarks: [],
+      resizeObserver: null,
     };
   },
   mounted() {
@@ -30,14 +31,14 @@ export default {
 
     //load map
     this.lmap = map(this.$refs.map).setView([51.505, -0.09], 13);
-    tileLayer(
-      'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 12,
-      }
-    ).addTo(this.lmap);
-    
+    tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      minZoom: 12,
+    }).addTo(this.lmap);
+
+    this.resizeObserver = new ResizeObserver(this.onResize).observe(
+      this.$refs.map
+    );
   },
   watch: {
     parcelSelected: function (newParcelSelected) {
@@ -78,7 +79,15 @@ export default {
       });
     },
   },
+
+  beforeDestroy() {
+    this.resizeObserver.unobserve(this.$refs.map);
+  },
+
   methods: {
+    onResize() {
+      this.lmap.invalidateSize();
+    },
     parseCoords(cord) {
       return cord.replace(",", ".");
     },
