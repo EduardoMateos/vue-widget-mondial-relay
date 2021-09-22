@@ -37,6 +37,7 @@ export default {
         minZoom: 12,
       }
     ).addTo(this.lmap);
+    
   },
   watch: {
     parcelSelected: function (newParcelSelected) {
@@ -49,11 +50,12 @@ export default {
       );
     },
     parcelShopList: function (newMarkers, oldMarkers) {
-      this.lmap.panTo(
+      this.lmap.setView(
         new LatLng(
           this.parseCoords(newMarkers[0].Lat),
           this.parseCoords(newMarkers[0].Long)
-        )
+        ),
+        12
       );
 
       this.lmarks.forEach((mark) => {
@@ -90,6 +92,7 @@ export default {
 <style>
 #map {
   height: 450px;
+  width: 100%;
 }
 .PR-Hours {
   width: 100%;

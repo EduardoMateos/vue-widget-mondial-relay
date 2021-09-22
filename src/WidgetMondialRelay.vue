@@ -133,7 +133,7 @@ export default {
     return {
       messageError: null,
       hasError: false,
-      mobileShowMap: true,
+      mobileShowMap: false,
       searchParcelShop: {
         Brand: this.brand,
         ClientContainerId: "Zone_Widget",

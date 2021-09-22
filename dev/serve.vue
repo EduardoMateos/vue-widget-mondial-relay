@@ -17,7 +17,7 @@ export default Vue.extend({
 
 <template>
   <div style="text-align: center">
-    <div id="app" style="margin: auto;">
+    <div id="app" style="margin: auto;max-width: 585px;">
       <WidgetMondialRelay
         brand="BDTEST  "
         defaultPostCode="28037"
