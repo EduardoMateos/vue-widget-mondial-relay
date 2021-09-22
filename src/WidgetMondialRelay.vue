@@ -17,12 +17,14 @@
     <div v-if="!hasError">
       <div class="mondial-relay-tab mondial-relay-widget-hide-desktop">
         <button
+          type="button"
           :class="mobileShowMap == true ? 'active' : ''"
           @click="mobileShowMap = true"
         >
           Listado
         </button>
         <button
+          type="button"
           :class="mobileShowMap == false ? 'active' : ''"
           @click="mobileShowMap = false"
         >

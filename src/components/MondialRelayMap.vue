@@ -31,7 +31,7 @@ export default {
     //load map
     this.lmap = map(this.$refs.map).setView([51.505, -0.09], 13);
     tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
       {
         maxZoom: 18,
         minZoom: 12,
@@ -89,7 +89,6 @@ export default {
 
 <style>
 #map {
-  width: 100%;
   height: 450px;
 }
 .PR-Hours {
