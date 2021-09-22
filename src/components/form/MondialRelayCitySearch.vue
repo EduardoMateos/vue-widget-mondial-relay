@@ -3,12 +3,13 @@
     <div class="mondial-relay-city">
       <input
         class="mondial-relay-city__input"
-        id="city"
-        name="city"
+        id="search"
+        name="search"
         @input="searchCity"
         :placeholder="findCityText"
         autocomplete="nope"
-        v-model="city"
+        v-model="search"
+        @blur="resetField"
       />
       <transition name="fade">
         <div
@@ -23,7 +24,7 @@
           </ul>
           <ul v-if="this.cities.length == 0">
             <li @click="close">
-              {{cityNoResults}}
+              {{ cityNoResults }}
             </li>
           </ul>
         </div>
@@ -40,15 +41,25 @@ export default {
   props: ["country", "findCityText", "cityNoResults"],
   data() {
     return {
-      city: "",
+      search: "",
+      citySelected: {},
       cities: [],
       open: false,
+      debounce: null
     };
   },
   methods: {
+    resetField() {
+      if (this.citySelected.Name != this.search) {
+        this.search = "";
+      }
+    },
     searchCity() {
-      if (this.city.length > 3) {
-        this.getCitiesByInput(this.city);
+      if (this.search.length > 3) {
+        clearTimeout(this.debounce);
+        this.debounce = setTimeout(() => {
+          this.getCitiesByInput(this.search);
+        }, 600);
       }
     },
     getCitiesByInput(input) {
@@ -60,14 +71,18 @@ export default {
           Country: this.country,
           City: input,
         }
-      ).then((data) => {
-        this.cities = data.Value;
-        this.open = true;
-        console.log(data);
-      });
+      )
+        .then((data) => {
+          this.cities = data.Value;
+          this.open = true;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     setCity(city) {
-      this.city = city.Name;
+      this.search = city.Name;
+      this.citySelected = city;
       this.$emit("setPostCode", city.PostCode);
       this.open = false;
     },
@@ -89,7 +104,7 @@ export default {
   position: relative;
   &__input {
     width: 100%;
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
     color: #495057;
@@ -98,7 +113,7 @@ export default {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ced4da;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     box-sizing: border-box;
     &:focus {
       color: #495057;
