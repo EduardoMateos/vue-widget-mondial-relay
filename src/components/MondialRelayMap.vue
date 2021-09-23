@@ -79,11 +79,6 @@ export default {
       });
     },
   },
-
-  beforeDestroy() {
-    this.resizeObserver.unobserve(this.$refs.map);
-  },
-
   methods: {
     onResize() {
       this.lmap.invalidateSize();
