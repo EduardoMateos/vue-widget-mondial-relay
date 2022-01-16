@@ -129,7 +129,7 @@ export default {
     background-color: white;
     width: 100%;
     text-align: left;
-    z-index: 500;
+    z-index: 1001;
     border-right: 1px solid #ced4da;
     border-bottom: 1px solid #ced4da;
     border-left: 1px solid #ced4da;

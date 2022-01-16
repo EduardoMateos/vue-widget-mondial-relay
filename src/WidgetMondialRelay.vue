@@ -1,4 +1,3 @@
-
 <template>
   <div class="mondial-relay-widget">
     <MondialRelayHeader :headerTitle="t.headerTitle">
@@ -17,16 +16,18 @@
     <div v-if="!hasError">
       <div class="mondial-relay-tab mondial-relay-widget-hide-desktop">
         <button
+          type="button"
           :class="mobileShowMap == true ? 'active' : ''"
           @click="mobileShowMap = true"
         >
-          Listado
+          {{ t.btnListMobile }}
         </button>
         <button
+          type="button"
           :class="mobileShowMap == false ? 'active' : ''"
           @click="mobileShowMap = false"
         >
-          Mapa
+          {{ t.btnMapMobile }}
         </button>
       </div>
       <div class="mondial-relay-row">
@@ -69,7 +70,6 @@
   </div>
 </template>
 
-
 <script>
 import { jsonp } from "vue-jsonp";
 import MondialRelayMap from "./components/MondialRelayMap";
@@ -81,32 +81,32 @@ import locales from "./assets/locales";
 export default {
   props: {
     brand: {
-      default: function () {
+      default: function() {
         return "BDTEST  ";
       },
     },
     defaultPostCode: {
-      default: function () {
+      default: function() {
         return 59000;
       },
     },
     defaultCountry: {
-      default: function () {
+      default: function() {
         return "FR";
       },
     },
     maxResults: {
-      default: function () {
+      default: function() {
         return "7";
       },
     },
     deliveryMode: {
-      default: function () {
+      default: function() {
         return "24R";
       },
     },
     allowedCountries: {
-      default: function () {
+      default: function() {
         return ["FR", "ES", "BE", "NL", "LU", "DE", "AT"];
       },
     },
@@ -131,7 +131,7 @@ export default {
     return {
       messageError: null,
       hasError: false,
-      mobileShowMap: true,
+      mobileShowMap: false,
       searchParcelShop: {
         Brand: this.brand,
         ClientContainerId: "Zone_Widget",
@@ -207,7 +207,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss">
 .mondial-relay-widget {

@@ -17,7 +17,7 @@ export default Vue.extend({
 
 <template>
   <div style="text-align: center">
-    <div id="app" style="margin: auto;">
+    <div id="app" style="margin: auto;max-width: 585px;">
       <WidgetMondialRelay
         brand="BDTEST  "
         defaultPostCode="28037"
@@ -25,6 +25,14 @@ export default Vue.extend({
         maxResults="7"
         deliveryMode="24R"
         allowedCountries="['ES']"
+        :translations="{
+          headerTitle: 'Select your mondial relay ®',
+          findCpText: 'CP',
+          findCityText: 'City',
+          cityNoResults: 'no results',
+          btnListMobile: 'List',
+          btnMapMobile: 'Map'
+        }"
         @select="setParcelSelected($event)"
       />
     </div>

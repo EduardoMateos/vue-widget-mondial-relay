@@ -17,6 +17,7 @@ export default {
     return {
       lmap: null,
       lmarks: [],
+      resizeObserver: null,
     };
   },
   mounted() {
@@ -30,13 +31,14 @@ export default {
 
     //load map
     this.lmap = map(this.$refs.map).setView([51.505, -0.09], 13);
-    tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 18,
-        minZoom: 12,
-      }
-    ).addTo(this.lmap);
+    tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      minZoom: 12,
+    }).addTo(this.lmap);
+
+    this.resizeObserver = new ResizeObserver(this.onResize).observe(
+      this.$refs.map
+    );
   },
   watch: {
     parcelSelected: function (newParcelSelected) {
@@ -49,11 +51,12 @@ export default {
       );
     },
     parcelShopList: function (newMarkers, oldMarkers) {
-      this.lmap.panTo(
+      this.lmap.setView(
         new LatLng(
           this.parseCoords(newMarkers[0].Lat),
           this.parseCoords(newMarkers[0].Long)
-        )
+        ),
+        12
       );
 
       this.lmarks.forEach((mark) => {
@@ -77,6 +80,9 @@ export default {
     },
   },
   methods: {
+    onResize() {
+      this.lmap.invalidateSize();
+    },
     parseCoords(cord) {
       return cord.replace(",", ".");
     },
@@ -89,8 +95,8 @@ export default {
 
 <style>
 #map {
-  width: 100%;
   height: 450px;
+  width: 100%;
 }
 .PR-Hours {
   width: 100%;
