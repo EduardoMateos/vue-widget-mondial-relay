@@ -1,6 +1,8 @@
 export default {
     headerTitle: 'Seleccione su Punto Pack ®',
     findCpText: 'CP',
-    findCityText: 'City',
-    cityNoResults: 'No results'
+    findCityText: 'Ciudad',
+    cityNoResults: 'Sin resultados',
+    btnListMobile: 'Listado',
+    btnMapMobile: 'Mapa'
 }
