@@ -69,7 +69,7 @@ export default {
           this.parseCoords(mark.Long),
         ])
           .addTo(this.lmap)
-          .bindPopup(mark.Nom + "<br>" + mark.HoursHtmlTable, {
+          .bindPopup(`<b>${mark.Nom}</b><br><div class="mondial-relay-map-warning">${mark.Warning}</div>${mark.HoursHtmlTable}`, {
             minWidth: 292,
           })
           .on("click", () => {
@@ -111,5 +111,9 @@ export default {
 }
 .PR-Hours .d {
   background: #eee;
+}
+.mondial-relay-map-warning{
+  color: #ffa500;
+  font-weight: bold;
 }
 </style>
