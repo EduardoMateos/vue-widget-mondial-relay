@@ -13,6 +13,7 @@
     </MondialRelayHeader>
 
     <MondialRelayErrorMessage :message="messageError" v-if="hasError" />
+
     <div v-if="!hasError">
       <div class="mondial-relay-tab mondial-relay-widget-hide-desktop">
         <button
@@ -41,11 +42,13 @@
               :key="key"
               class="mondial-relay-parcel-list__shop"
               @click="selectParcel(item)"
-              :class="
+              :class="[
                 parcelSelected && parcelSelected.ID == item.ID
                   ? 'mondial-relay-parcel-list__shop--selected'
-                  : ''
-              "
+                  : '',
+
+                !item.Available ? 'mondial-relay-parcel-list__shop--disabled' : '',
+              ]"
             >
               <div class="mondial-relay-parcel-list__shop__name">
                 {{ item.Nom }}
@@ -73,7 +76,7 @@
 <script>
 import { jsonp } from "vue-jsonp";
 import MondialRelayMap from "./components/MondialRelayMap";
-import MondialRelayFormSearchCP from "./components/form/MondialRelayFormSearchCP";
+import MondialRelayFormSearchCP from "./components/MondialRelayFormSearchCP";
 import MondialRelayErrorMessage from "./components/MondialRelayErrorMessage";
 import MondialRelayHeader from "./components/MondialRelayHeader";
 import locales from "./assets/locales";
@@ -157,7 +160,10 @@ export default {
   },
   methods: {
     selectParcel(parcel) {
-      this.$emit("select", parcel);
+      if (parcel.Available) {
+        this.$emit("select", parcel);
+      }
+
       this.parcelSelected = parcel;
     },
     search(data) {
@@ -266,6 +272,9 @@ export default {
     &--selected {
       background-color: #f0f0f0;
       border-left: solid 2px #ca0047;
+    }
+    &--disabled{
+      opacity: .4;
     }
   }
 }
