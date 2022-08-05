@@ -14,6 +14,8 @@ _Mondial Relay Widget https://widget.mondialrelay.com/parcelshop-picker/v4_0/cod
 
 Vue 2
 
+Vue 3 ? use the new component -> https://github.com/EduardoMateos/vue3-widget-mondial-relay
+
 ## Props API
 
 | Props            | Type   | Required | Default          | Details                                          |
