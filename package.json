@@ -1,6 +1,6 @@
 {
   "name": "vue-widget-mondial-relay",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "dist/widget-mondial-relay.ssr.js",
   "browser": "dist/widget-mondial-relay.esm.js",
@@ -20,8 +20,8 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
-    "leaflet": "^1.7.1",
-    "vue-click-outside": "^1.1.0",
+    "leaflet": "^1.8.0",
+    "vue-demi": "^0.12.5",
     "vue-jsonp": "^2.0.0"
   },
   "devDependencies": {

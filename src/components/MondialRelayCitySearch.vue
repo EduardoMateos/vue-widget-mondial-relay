@@ -35,7 +35,7 @@
 
 <script>
 import { jsonp } from "vue-jsonp";
-import ClickOutside from "vue-click-outside";
+import ClickOutside from "./../directives/click-outside";
 
 export default {
   props: ["country", "findCityText", "cityNoResults"],
