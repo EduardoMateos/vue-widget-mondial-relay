@@ -114,6 +114,26 @@ export default {
       },
     },
     translations: { type: Object, default: null },
+    searchDelay: {
+      default: function() {
+        return "";
+      },
+    },
+    latitude: {
+      default: function() {
+        return "";
+      },
+    },
+    longitude: {
+      default: function() {
+        return "";
+      },
+    },
+    weight: {
+      default: function() {
+        return "";
+      },
+    },
   },
   components: {
     MondialRelayMap,
@@ -140,16 +160,18 @@ export default {
         ClientContainerId: "Zone_Widget",
         ColLivMod: this.deliveryMode,
         Country: this.defaultCountry,
-        Latitude: "",
-        Longitude: "",
+        Latitude: this.latitude,
+        Longitude: this.longitude,
         NbResults: this.maxResults,
         PostCode: this.defaultPostCode,
-        SearchDelay: "",
+        SearchDelay: this.searchDelay,
         SearchFar: "75",
         Service: "",
         VacationAfter: "",
         VacationBefore: "",
-        Weight: "",
+        Weight: this.weight,
+        callbackQuery: "method",
+        callbackName: "receive",
       },
       parcelShopList: [],
       parcelSelected: null,
@@ -176,24 +198,7 @@ export default {
     getParcelShopList() {
       jsonp(
         "https://widget.mondialrelay.com/parcelshop-picker/v4_0/services/parcelshop-picker.svc/SearchPR",
-        {
-          callbackQuery: "method",
-          callbackName: "receive",
-          Brand: this.brand,
-          ClientContainerId: "Zone_Widget",
-          ColLivMod: this.searchParcelShop.ColLivMod,
-          Country: this.searchParcelShop.Country,
-          Latitude: "",
-          Longitude: "",
-          NbResults: this.searchParcelShop.NbResults,
-          PostCode: this.searchParcelShop.PostCode,
-          SearchDelay: "",
-          SearchFar: "75",
-          Service: "",
-          VacationAfter: "",
-          VacationBefore: "",
-          Weight: "",
-        }
+        this.searchParcelShop
       )
         .then((data) => {
           if (data.Error) {

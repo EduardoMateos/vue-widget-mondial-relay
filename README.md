@@ -18,15 +18,19 @@ Vue 3 ? use the new component -> https://github.com/EduardoMateos/vue3-widget-mo
 
 ## Props API
 
-| Props            | Type   | Required | Default          | Details                                          |
-| ---------------- | ------ | -------- | ---------------- | ------------------------------------------------ |
-| brand            | String | true     |                  | Provider by Mondial Relay                        |
-| defaultPostCode  | String | false    | 59000            | Default postal Code used for search at loading   |
-| defaultCountry   | String | false    | FR               | FR, ES, BE, NL, LU, DE, AT                       |
-| maxResults       | Int    | false    | 7                | Must be less than 20                             |
-| deliveryMode     | String | false    | 24R              | Standard [24R], XL [24L], XXL [24X], Drive [DRI] |
-| allowedCountries | Array  | false    | \*               | FR, ES, BE, NL, LU, DE, AT                       |
-| translations     | Object | false    | texts in spanish | details in documentation                         |
+| Props            | Type   | Required | Default          | Details                                             |
+|------------------|--------| -------- |------------------|-----------------------------------------------------|
+| brand            | String | true     |                  | Provider by Mondial Relay                           |
+| defaultPostCode  | String | false    | 59000            | Default postal Code used for search at loading      |
+| defaultCountry   | String | false    | FR               | FR, ES, BE, NL, LU, DE, AT                          |
+| maxResults       | Int    | false    | 7                | Must be less than 20                                |
+| deliveryMode     | String | false    | 24R              | Standard [24R], XL [24L], XXL [24X], Drive [DRI]    |
+| allowedCountries | Array  | false    | \*               | FR, ES, BE, NL, LU, DE, AT                          |
+| translations     | Object | false    | texts in spanish | details in documentation                            |
+| searchDelay      | Int    | false    |                  | In days. Get relay not in vacation until this delay |
+| latitude         | Float  | false    |                  | Delivery latitude                                   |
+| longitude        | Float  | false    |                  | Delivery longitude                                  |
+| weight           | Float  | false    |                  | Get eligible relays for the parcel weight           |
 
 ## Translations
 
